@@ -1,0 +1,12 @@
+export class ParsingError extends Error {
+    constructor(message) {
+        super(message);
+        this.name = "ParsingError";
+    }
+}
+export class InvalidFileTypeError extends Error {
+    constructor(message) {
+        super(message);
+        this.name = "InvalidFileTypeError";
+    }
+}

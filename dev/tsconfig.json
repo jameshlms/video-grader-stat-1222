@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "es2020",                            // or your desired JS version
+    "module": "esnext",                         // or "commonjs", "es2020", etc.
+    "rootDir": "typescript",                            // where your TypeScript source files are
+    "outDir": "../frontend/javascript",                      // where compiled JS files go
+    "strict": true,                             // enable all strict type-checking
+    "esModuleInterop": true,                    // for compatibility with CommonJS
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "lib": ["es2020", "dom"]
+  },
+  "include": ["typescript/**/*.ts"],
+  "exclude": ["node_modules", "**/*.csv", "**/*.ipynb"]
+}
