@@ -2,13 +2,13 @@
 
 import { loadPyodide } from "https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.mjs";
 import { pythonCode } from "./python-snippet.js";
-import { createTableFromJSON } from "./table-output.js";
+import { appendTableFromJson } from "./table-output.js";
 import {
   displaySelectedNamesInput,
   displayPasskeyInput,
 } from "./option-displays.js";
 import {
-  convertCsvFiles,
+  convertStatisticsFilesInput,
   convertForgivenessDegreeInput,
   convertThresholdInput,
 } from "./input-handlers.js";
@@ -16,6 +16,7 @@ import {
   ErrorMessageList,
   highlightErrorSourceInput,
 } from "./error-display.js";
+import { getGradingLogic } from "./python-code.js";
 
 let pyodide;
 const errorMessages = new ErrorMessageList();
@@ -26,11 +27,22 @@ async function loadResources() {
   document.getElementById("loading-screen").style.display = "none";
 }
 
-async function main() {
-  await loadResources();
+function unhidePageContent() {
   document.querySelector("header").classList.remove("hidden");
   document.querySelector("main").classList.remove("hidden");
   document.querySelector("footer").classList.remove("hidden");
+}
+
+async function main() {
+  await loadResources();
+  unhidePageContent();
+
+  const gradingLogic = await getGradingLogic();
+  if (gradingLogic) {
+    console.log(gradingLogic);
+  } else {
+    console.error("Failed to load grading logic.");
+  }
 
   document
     .querySelectorAll('input[name="name-source"]')

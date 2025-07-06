@@ -280,7 +280,6 @@ aside #error-display {
 .content .student-names-section #name-source-options {
   display: flex;
   flex-direction: row;
-  gap: 1rem;
 }
 
 .content #submit-area {
@@ -317,12 +316,20 @@ aside #error-display {
   padding: 0.5em;
 }
 
+.content fieldset input {
+  margin-right: 0.3rem;
+}
+
+.content fieldset label {
+  margin-right: 1rem;
+}
+
 footer {
   padding: 0.5em;
   width: 100%;
   bottom: 0;
-  background-color: var(--quartz-white);
-  color: var(--charlotte-green);
+  background-color: var(--secondary-color);
+  color: white;
   display: flex;
   gap: 2em;
   justify-content: right;
@@ -330,7 +337,7 @@ footer {
 }
 
 footer > a {
-  color: blue;
+  color: rgb(93, 93, 251);
   text-decoration: none;
   font-weight: bold;
 }
@@ -341,7 +348,7 @@ footer > a:hover {
 }
 
 footer > a:visited {
-  color: purple;
+  color: rgb(223, 82, 223);
 }
 
 .hidden {
