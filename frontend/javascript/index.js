@@ -37,6 +37,17 @@ async function main() {
   await loadResources();
   unhidePageContent();
 
+  fetch(
+    "https://raw.githubusercontent.com/jameshlms/video-grader-stat-1222/main/dev/grading_logic.ipynb"
+  )
+    .then((response) => response.json())
+    .then((notebook) => {
+      console.log(notebook.cells);
+    })
+    .catch((error) => {
+      console.error("Error loading grading logic:", error);
+    });
+
   const gradingLogic = await getGradingLogic();
   if (gradingLogic) {
     console.log(gradingLogic);
