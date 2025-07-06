@@ -7,10 +7,8 @@ export async function getGradingLogic() {
         console.error("Failed to fetch notebook cells.");
         return [];
     });
-    const gradingLogicCells = cells.filter((cell) => cell.cell_type === "code" &&
-        cell.metadata.tags &&
-        cell.metadata.tags.includes("grading-logic"));
-    return gradingLogicCells;
+    const gradingLogicCell = cells.find((cell) => cell.cell_type === "code" && cell.id === "9d96cc92");
+    return gradingLogicCell ? gradingLogicCell.source.join("\n") : null;
     // try {
     //   const response = await fetch(notebookUrl);
     //   const notebook = await response.json();
