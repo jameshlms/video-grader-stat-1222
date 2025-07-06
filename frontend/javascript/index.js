@@ -1,7 +1,6 @@
 "use strict";
 
 import { loadPyodide } from "https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.mjs";
-import { pythonCode } from "./python-snippet.js";
 import { appendTableFromJson } from "./table-output.js";
 import {
   displaySelectedNamesInput,
@@ -19,15 +18,17 @@ import {
 import { getGradingLogic } from "./python-code.js";
 
 let pyodide;
+let pythonCode;
 const errorMessages = new ErrorMessageList();
 
 async function loadResources() {
   pyodide = await loadPyodide();
   await pyodide.loadPackage(["pandas"]);
-  document.getElementById("loading-screen").style.display = "none";
+  pythonCode = await getGradingLogic();
 }
 
 function unhidePageContent() {
+  document.getElementById("loading-screen").style.display = "none";
   document.querySelector("header").classList.remove("hidden");
   document.querySelector("main").classList.remove("hidden");
   document.querySelector("footer").classList.remove("hidden");
@@ -36,24 +37,6 @@ function unhidePageContent() {
 async function main() {
   await loadResources();
   unhidePageContent();
-
-  fetch(
-    "https://raw.githubusercontent.com/jameshlms/video-grader-stat-1222/main/dev/grading_logic.ipynb"
-  )
-    .then((response) => response.json())
-    .then((notebook) => {
-      console.log(notebook.cells);
-    })
-    .catch((error) => {
-      console.error("Error loading grading logic:", error);
-    });
-
-  const gradingLogic = await getGradingLogic();
-  if (gradingLogic) {
-    console.log(gradingLogic);
-  } else {
-    console.error("Failed to load grading logic.");
-  }
 
   document
     .querySelectorAll('input[name="name-source"]')
@@ -151,7 +134,16 @@ async function submitForm(event) {
   // Clear previous information
   document.querySelector("form").reset();
   errorMessages.clear();
+
+  
+  pyodide.globals.set("csv_list", csvFiles);
+  pyodide.globals.set("threshold", threshold);
+  pyodide.globals.set("forgive_deg", forgiveness);
+  pyodide.runPython(pythonCode)
+
   return true;
 }
+
+function gradeThenDisplay()
 
 main();

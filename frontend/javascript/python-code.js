@@ -8,7 +8,14 @@ export async function getGradingLogic() {
         return [];
     });
     const gradingLogicCell = cells.find((cell) => cell.cell_type === "code" && cell.id === "9d96cc92");
-    return gradingLogicCell ? gradingLogicCell.source.join("\n") : null;
+    if (!gradingLogicCell || !gradingLogicCell.source) {
+        console.error("Grading logic cell not found or has no source.");
+        return null;
+    }
+    const pythonCode = gradingLogicCell.source;
+    const gradingLogic = pythonCode.join("").trim();
+    console.log("Successfully retreived grading logic");
+    return gradingLogic;
     // try {
     //   const response = await fetch(notebookUrl);
     //   const notebook = await response.json();
