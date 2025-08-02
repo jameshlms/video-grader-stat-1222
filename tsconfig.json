@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "rootDir": ".",
+    "outDir": "../frontend/javascript",
+    "strict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "lib": ["esnext", "dom"],
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+  },
+  "include": [
+    "src/**/*",
+  ],
+  "exclude": [
+    "node_modules",                            
+    "dist",                                    
+    "**/*.spec.ts",
+    ".venv",
+    "notebooks",             
+  ]
+}

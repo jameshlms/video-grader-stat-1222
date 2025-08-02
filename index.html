@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>STAT-1222 Video Grader</title>
+    <link rel="stylesheet" href="./src/styles/styles.css" />
+    <link rel="icon" href="public/images/favicon.png" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script type="module" src="src/main.ts" defer></script>
+  </head>
+  <body>
+    <div id="loading-screen">
+      <div class="loading-spinner"></div>
+      <p>Loading...</p>
+    </div>
+    <div id="service-down-screen" class="hidden">
+      <h2>Service Unavailable</h2>
+      <p>
+        We're sorry, but the grading service is currently unavailable. Please
+        try again later.
+      </p>
+    </div>
+    <header class="hidden">
+      <img
+        id="charlotte-logo"
+        src="./images/All-in-C.png"
+        alt="STAT-1222 Logo"
+        width="0"
+        height="0"
+      />
+      <h1>STAT-1222 Video Grader</h1>
+      <div id="hamburger-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <nav class="hidden"></nav>
+    </header>
+    <main class="hidden">
+      <form id="assignment-upload" class="assignment-details">
+        <h2>Assignment Information</h2>
+        <fieldset>
+          <legend>Upload Video Statistic Files</legend>
+          <label for="video-file">Select Video Files:</label>
+          <input
+            type="file"
+            id="video-files"
+            name="video-files"
+            accept=".csv"
+            multiple="multiple"
+            class="base-btn"
+            placeholder="Select CSV video files"
+            title="Select one or more CSV video files to upload"
+          />
+          <button type="button" id="clear-selection-button" class="base-btn">
+            Clear Selection
+          </button>
+          <p class="tooltip">
+            <i class="fas fa-info-circle"></i>
+            To select more than one file, hold down the Ctrl on Windows (Ctrl +
+            click) or Command on Mac (⌘ + click) key while selecting files.
+          </p>
+        </fieldset>
+        <fieldset class="student-names-section">
+          <legend>Student Names</legend>
+          <div class="radio-group">
+            <input
+              type="radio"
+              name="name-source"
+              id="saved-names"
+              value="0"
+              class="name-source-option"
+              checked
+            />
+            <label for="saved-names" class="base-btn"
+              >Use names from browser</label
+            >
+            <input
+              type="radio"
+              name="name-source"
+              id="manual-names"
+              value="1"
+              class="name-source-option"
+            />
+            <label for="manual-names" class="base-btn"
+              >Enter names manually</label
+            >
+            <input
+              type="radio"
+              name="name-source"
+              id="upload-names"
+              value="2"
+              class="name-source-option"
+            />
+            <label for="upload-names" class="base-btn"
+              >Upload names from file</label
+            >
+          </div>
+          <textarea
+            id="names-textarea"
+            rows="5"
+            placeholder="Type or paste names with a comma between (e.g.: Alice, Bob, Charlie)"
+            class="hidden"
+            name="manual-names"
+          ></textarea>
+          <input
+            type="file"
+            id="names-file"
+            accept=".txt, .csv"
+            class="hidden"
+            title="Upload a file containing student names"
+            name="file-names"
+          />
+          <p class="tooltip">
+            <i class="fas fa-info-circle"></i>
+            Ensure that names are spelled as they are in Canvas.
+          </p>
+        </fieldset>
+        <fieldset>
+          <legend>Completion Threshold</legend>
+          <label for="completion-threshold-input">
+            Completion Threshold (%):
+          </label>
+          <div class="percentage-input">
+            <input
+              type="text"
+              name="completion-threshold"
+              id="completion-threshold-input"
+              placeholder="80"
+              value="80"
+              pattern="^(100|[1-9]?[0-9])$"
+              maxlength="3"
+            /><span>%</span>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Forgiveness Degree</legend>
+          <label for="forgiveness-degree-input"> Allowed Missed Videos: </label>
+          <input
+            type="number"
+            name="forgiveness-degree"
+            id="forgiveness-degree-input"
+            min="0"
+            max="5"
+            placeholder="Enter forgiveness degree (0-5)"
+            value="0"
+          />
+        </fieldset>
+        <button type="submit" id="submit-button" class="base-btn">
+          Submit Files
+        </button>
+      </form>
+      <aside id="results-panel">
+        <section id="placeholder-section">
+          <h2>Results</h2>
+          <p>This is where the results of the grading will be displayed.</p>
+        </section>
+        <section id="results-section" class="hidden">
+          <h2>Grading Results</h2>
+          <div id="results-content"></div>
+        </section>
+      </aside>
+    </main>
+    <footer class="hidden">
+      <p>Created by James Holmes for the STAT-1222 Course at UNC Charlotte</p>
+      <p>Submit feedback <a href="." target="_blank">here</a>!</p>
+    </footer>
+  </body>
+</html>

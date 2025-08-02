@@ -32,26 +32,6 @@ export async function getGradingLogic(): Promise<string | null> {
 
   const pythonCode: string[] = gradingLogicCell.source;
   const gradingLogic: string = pythonCode.join("").trim();
-  console.log("Successfully retreived grading logic");
+  console.log("Successfully retrieved grading logic");
   return gradingLogic;
-
-  // try {
-  //   const response = await fetch(notebookUrl);
-  //   const notebook = await response.json();
-  //   const cells: Array<NotebookCell> = notebook.cells || [];
-  //   const gradingLogicCell: NotebookCell | undefined = cells.find(
-  //     (cell: NotebookCell) =>
-  //       cell.cell_type === "code" &&
-  //       cell.metadata.tags.includes("grading-logic")
-  //   );
-
-  //   if (gradingLogicCell && gradingLogicCell.source) {
-  //     const gradingLogic = gradingLogicCell.source.join("\n").trim();
-  //     return gradingLogic;
-  //   } else {
-  //     return null;
-  //   }
-  // } catch {
-  //   return null;
-  // }
 }

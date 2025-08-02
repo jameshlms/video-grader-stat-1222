@@ -1,23 +1,8 @@
 "use strict";
 
-declare global {
-  interface Array<T> {
-    first(): T | null;
-  }
-}
-
-Array.prototype.first = function <T>(): T | null {
-  return this.length > 0 ? this[0] : null;
-};
-
 type ColumnHeader = string;
 type ColumnValues = string[] | number[] | boolean[];
 type Column = Record<ColumnHeader, ColumnValues>;
-
-type GradingData = {
-  count: number;
-  data: Record<string, string[] | number[] | boolean[]>;
-};
 
 const dataTransformations: Record<string, (value: any) => string> = {
   name: (value: any) => String(value),
@@ -25,22 +10,11 @@ const dataTransformations: Record<string, (value: any) => string> = {
   ignoredMissingVideos: (value: any) => String(value),
 };
 
-/**
- * Creates a table from a JSON string representing grading data.
- *
- * @param jsonString - The JSON string containing grading data.
- * @returns true if the table was created successfully, false otherwise.
- */
-export function appendTableFromJson(
-  gradingData: GradingData | string,
-  targetElement: HTMLElement
-): void {
-  // Create the table element
+export function getTableFromGradingData(gradingData: GradingData | string): HTMLTableElement {
   const table: HTMLTableElement = document.createElement("table");
 
   // Either parse the JSON string or use the provided object directly
-  const jsonData: GradingData =
-    typeof gradingData === "string" ? JSON.parse(gradingData) : gradingData;
+  const jsonData: GradingData = typeof gradingData === "string" ? JSON.parse(gradingData) : gradingData;
 
   // Number of rows in the table (including the header row) and grading data
   const tableRowCount: number = jsonData.count + 1;
@@ -88,8 +62,7 @@ export function appendTableFromJson(
       default:
         const match = header.match(/^video(\d+)Completion$/);
         if (match == null) {
-          console.error(`Invalid header format: ${header}`);
-          return;
+          throw new Error(`Invalid header format: ${header}`);
         }
         th.textContent = `Video ${match[1]} Completion Rate`;
         break;
@@ -116,4 +89,5 @@ export function appendTableFromJson(
         : String(value);
     }
   }
+  return table;
 }
