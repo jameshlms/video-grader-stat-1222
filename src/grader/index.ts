@@ -13,7 +13,7 @@ class Grader {
     const pyodide = await getPyodide().catch((err) => {
       throw new Error(`Failed to load Pyodide: ${err.message}`);
     });
-    const script = await fetch("public/python/grading_logic.py")
+    const script = await fetch("./python/grading_logic.py")
       .then((response) => response.text())
       .catch((err) => {
         throw new Error(`Failed to fetch grading logic script: ${err.message}`);
@@ -33,17 +33,15 @@ class Grader {
    * @returns {Promise<GradingData>} A promise that resolves to the grading result object.
    * @throws {Error} If grading fails or returns an invalid result.
    */
-  async gradeAsync(
-    csvFiles: string[],
-    studentNames: string[],
-    completionThreshold: number,
-    forgivenessDegree: number
-  ): Promise<GradingData> {
+  async gradeAsync(data: AssignmentData | null): Promise<GradingData | null> {
+    if (!data) {
+      return null;
+    }
     const pyodide = await getPyodide();
-    pyodide.globals.set("csv_files", csvFiles);
-    pyodide.globals.set("student_names", studentNames);
-    pyodide.globals.set("completion_threshold", completionThreshold);
-    pyodide.globals.set("forgiveness_degree", forgivenessDegree);
+    pyodide.globals.set("csv_files", data.csvTexts);
+    pyodide.globals.set("student_names", data.studentNames);
+    pyodide.globals.set("completion_threshold", data.completionThreshold);
+    pyodide.globals.set("forgiveness_degree", data.forgivenessDegree);
 
     await pyodide.runPythonAsync(`result = grade(csv_files, student_names, completion_threshold, forgiveness_degree)`);
 
@@ -66,10 +64,5 @@ export async function loadGrader(): Promise<GraderInterface> {
 
 export interface GraderInterface {
   init(): Promise<void>;
-  gradeAsync(
-    csvFiles: string[],
-    studentNames: string[],
-    completionThreshold: number,
-    forgivenessDegree: number
-  ): Promise<GradingData>;
+  gradeAsync(data: AssignmentData | null): Promise<GradingData | null>;
 }

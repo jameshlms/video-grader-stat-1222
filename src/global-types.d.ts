@@ -6,7 +6,7 @@ declare global {
     data: Record<string, string[] | number[] | boolean[]>;
   };
 
-  type GradingPayload = {
+  type AssignmentData = {
     csvTexts: string[];
     studentNames: string[];
     completionThreshold: number;

@@ -10,9 +10,26 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.28.0/full/pyodide.zip"></script>
     <script type="module" src="src/main.ts" defer></script>
   </head>
   <body>
+    <header>
+      <img
+        id="charlotte-logo"
+        src="./images/All-in-C.png"
+        alt="STAT-1222 Logo"
+        width="0"
+        height="0"
+      />
+      <h1>STAT-1222 Video Grader</h1>
+      <div id="hamburger-icon" title="Currently not functional">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <nav class="hidden"></nav>
+    </header>
     <div id="loading-screen">
       <div class="loading-spinner"></div>
       <p>Loading...</p>
@@ -24,23 +41,7 @@
         try again later.
       </p>
     </div>
-    <header class="hidden">
-      <img
-        id="charlotte-logo"
-        src="./images/All-in-C.png"
-        alt="STAT-1222 Logo"
-        width="0"
-        height="0"
-      />
-      <h1>STAT-1222 Video Grader</h1>
-      <div id="hamburger-icon">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-      <nav class="hidden"></nav>
-    </header>
-    <main class="hidden">
+    <main id="main-screen" class="hidden">
       <form id="assignment-upload" class="assignment-details">
         <h2>Assignment Information</h2>
         <fieldset>
@@ -149,6 +150,51 @@
             placeholder="Enter forgiveness degree (0-5)"
             value="0"
           />
+          <div class="radio-group">
+            <input
+              type="radio"
+              name="forgiveness-degree"
+              id="forgiveness-degree-0"
+              value="0"
+              checked
+            />
+            <label for="forgiveness-degree-0">0</label>
+            <input
+              type="radio"
+              name="forgiveness-degree"
+              id="forgiveness-degree-1"
+              value="1"
+            />
+            <label for="forgiveness-degree-1">1</label>
+            <input
+              type="radio"
+              name="forgiveness-degree"
+              id="forgiveness-degree-2"
+              value="2"
+            />
+            <label for="forgiveness-degree-2">2</label>
+            <input
+              type="radio"
+              name="forgiveness-degree"
+              id="forgiveness-degree-3"
+              value="3"
+            />
+            <label for="forgiveness-degree-3">3</label>
+            <input
+              type="radio"
+              name="forgiveness-degree"
+              id="forgiveness-degree-4"
+              value="4"
+            />
+            <label for="forgiveness-degree-4">4</label>
+            <input
+              type="radio"
+              name="forgiveness-degree"
+              id="forgiveness-degree-5"
+              value="5"
+            />
+            <label for="forgiveness-degree-5">5</label>
+          </div>
         </fieldset>
         <button type="submit" id="submit-button" class="base-btn">
           Submit Files
@@ -165,7 +211,7 @@
         </section>
       </aside>
     </main>
-    <footer class="hidden">
+    <footer>
       <p>Created by James Holmes for the STAT-1222 Course at UNC Charlotte</p>
       <p>Submit feedback <a href="." target="_blank">here</a>!</p>
     </footer>

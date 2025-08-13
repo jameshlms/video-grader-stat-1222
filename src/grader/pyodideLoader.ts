@@ -6,7 +6,7 @@ export async function getPyodide(): Promise<PyodideInterface> {
   if (!pyodide) {
     pyodide = await loadPyodide({
       fullStdLib: true,
-      indexURL: "https://cdn.jsdelivr.net/pyodide/v0.18.1/full/",
+      indexURL: "https://cdn.jsdelivr.net/pyodide/v0.28.0/full/",
       packages: ["pandas", "numpy"],
     });
   }

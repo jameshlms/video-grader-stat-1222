@@ -3,7 +3,7 @@
 // CSS Classes and IDs
 export const HIDDEN_CLASS = "hidden";
 export const LOADING_SCREEN_ID = "loading-screen";
-export const MAIN_CONTENT_SCREEN_ID = "main-content";
+export const MAIN_SCREEN_ID = "main-content";
 export const SERVICE_DOWN_SCREEN_ID = "service-down";
 export const ERROR_HIGHLIGHT_CLASS = "error-highlight";
 export const RESULTS_ID = "results";

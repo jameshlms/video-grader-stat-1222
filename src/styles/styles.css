@@ -339,3 +339,7 @@ footer > a:visited {
 .hidden {
   display: none;
 }
+
+#loading-screen.hidden {
+  display: none;
+}
